@@ -1,0 +1,212 @@
+% Em02-B-v1.tex
+% Standalone pdfLaTeX source.
+% Numerical entries are the audit_manifest.json written by em02b.run_audit
+% after source id 1eeba3536183. Fifteen unit tests passed in that session.
+
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs,tabularx}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\allowdisplaybreaks
+\setlength{\emergencystretch}{3em}
+\setlist{leftmargin=*,itemsep=3pt,topsep=5pt}
+\numberwithin{equation}{section}
+\setcounter{tocdepth}{1}
+
+\hypersetup{pdftitle={Em02-B: Computational Evaluation of Simulated Crossed Families},pdfauthor={}}
+
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{definition}
+\newtheorem{convention}[proposition]{Convention}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\status}[1]{\par\smallskip\noindent\textit{Status: #1.}\par\smallskip}
+
+\title{\textbf{Em02-B}\\[0.4em]
+Computational Evaluation of Simulated Crossed Families\\[0.4em]
+\large Weighted atomic cone integrals, localization audits,\\
+and one simulated non-tip adjoint}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note records the audit in
+\texttt{results/tables/audit\_manifest.json},
+source identifier \texttt{1eeba3536183}.
+Fifteen unit tests passed.
+The runner label is \texttt{singular\_diagnostic}; the admission
+field is \texttt{not\_claimed}.
+A configuration labelled \texttt{physical\_identified} is rejected
+by \texttt{require\_simulated}.
+
+For the cutoff in the package,
+\(c_R=0.625\) and
+\(c_{47}=0.15045103006514954\).
+The chart formula agrees to \(1.96\times 10^{-13}\).
+At fixed \(\epsilon=0.1\), the \(47\) mesh residual falls from
+\(1.34\times 10^{-4}\) at \(21\) nodes to
+\(1.12\times 10^{-5}\) at \(81\) nodes, which supports a grid-bias
+reading of the earlier stable residual.
+The amplitude probe has exact target
+\(0.14179675523330723\), independent of \(\epsilon\).
+
+The weighted atomic \(5a\) integral at \(\delta=0.35\) is
+\(4.851387241020615\) by a Gauss cap rule and
+\(4.845938176179326\) by a scrambled Sobol rule on \(2^{12}\) nodes.
+The relative gap is \(1.1\times 10^{-3}\).
+These quadratures do not share nodes.
+A scalar simulated \(\mathscr P_{5a}\) integral on
+\(\gamma\in[-1.2,-0.4]\) equals \(-0.004633651977461527\).
+No inherited physical coefficient is claimed.
+The subsequent isolated-row run, source \texttt{05485aec7a9a},
+builds the specialized vertex and both adjoint constructions.
+They agree termwise to \(2.8\times 10^{-14}\).
+The seven-dimensional seed integral changes sign from
+\(-49.40\) to \(21.20\) to \(-8.25\) as the \(U\)-node count goes
+from 5 to 7, so no row value is released.
+The later overlap reduction separates that failure from the inner
+integral. At \(s_*\) the factored inner value is \(-2428.716\), and a
+16-node overlap-box rule agrees to \(0.28\%\). The outer cone rules
+do not: Gauss gives \(3.01,-0.15,-2.58\) and Sobol stays near \(-4.3\).
+The row remains unreleased.
+\end{abstract}
+
+\tableofcontents
+
+\section{Scope}
+The physical ledger of Em02-A-v6 remains open.
+The package evaluates simulated data only.
+The obsolete shared-node value \(34.747\ldots\) is not a result of
+this revision: that sum used an inserted null node and a single
+panel width. It is not in the manifest.
+
+\begin{convention}
+Every stored run carries \texttt{smooth\_benchmark},
+\texttt{singular\_diagnostic}, or
+\texttt{manufactured\_cancellation}.
+\texttt{physical\_identified} raises \texttt{RuntimeError}.
+\end{convention}
+
+\section{Localization}
+The five-cone mass at fixed rescaled resolution, not a refinement
+in \(\epsilon\), gives residual \(-4.17\times 10^{-8}\) against
+\(c_R\) at \(\epsilon=0.25,0.125,0.0625\).
+
+The \(47\) chart residual at those scales stays near
+\(-1.12\times 10^{-5}\) on an \(81\)-node mesh.
+Holding \(\epsilon=0.1\) and refining the mesh gives
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+nodes & scaled integral & residual against \(c_{47}\)\\
+\midrule
+\(21\) & \(0.150316797673\) & \(-1.342\times 10^{-4}\)\\
+\(41\) & \(0.150407097916\) & \(-4.393\times 10^{-5}\)\\
+\(81\) & \(0.150439836944\) & \(-1.119\times 10^{-5}\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+The residual shrinks as the mesh is refined. That supports grid
+bias. It does not by itself prove the bias model; it is the check
+the previous note lacked.
+
+For \(H=1+0.3\,T\), the scaled probe equals
+\(0.3\int_0^\infty t^2 b_0(2t^2)\,\mathrm d t
+=0.14179675523330723\)
+exactly, before quadrature error.
+The trapezoidal values are
+\(0.141796588567\), \(0.141796421900\), and \(0.141796088567\).
+The drift is consistent with amplification of a small cone-mass
+error after subtraction, not with failure of the localization
+identity.
+
+\section{Weighted atomic integral}
+The passive \(T\)-cone is weighted by \(e^{-T}\), and
+\(\int_0^\infty T e^{-T}\,\mathrm d T=1\).
+The angular factor on that cone is the sphere probability.
+The dynamical integral is
+\begin{equation}
+ I=\int \frac{S}{4\pi}\,c_\delta(S,\mathbf n)\,\mathrm d\mathbf n\,\mathrm d S,
+\end{equation}
+with \(c_\delta\) the translated atomic profile and \(U=U_*\).
+The site is \(U_*=(1,1,0,0)\), \(V_*=0\), so \(b-a\) is future null.
+Route~B is a Gauss rule on the cap containing the mollifier
+support: \(24\times 16\times 24\) nodes.
+Route~A is a scrambled Sobol rule of length \(2^{12}\) on the same
+cap and does not call Route~B.
+
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+profile & Gauss & Sobol\\
+\midrule
+\(\rho_\delta\) & \(4.851387241020615\) & \(4.845938176179326\)\\
+\(\kappa_\delta\) & \(-24.16497259148322\) & \(-24.198566431394124\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+Absolute gaps are \(5.45\times 10^{-3}\) and \(3.36\times 10^{-2}\).
+Relative gaps are about \(0.11\%\) and \(0.14\%\).
+A coarser Gauss rule, \(12\times 8\times 12\), differs from a
+\(20\times 12\times 16\) rule by \(1.5\%\) relative.
+This is an independent quadrature check of a closed-form integrand.
+It is not the seven-row pairing: the vertex and the component
+adjoint are not in \(I\).
+
+\section{Simulated non-tip adjoint}
+With \(f=\sigma=1\) and unit scalar \(A\)-factors, the displayed
+\(\mathscr P_{5a}\) reduces to
+\(\partial_{s^0}^2\partial_{t^0}^2\Psi\) for
+\(\Psi=\exp(-((s^0-1.5)^2+(t^0)^2))\).
+Derivatives are taken before the chart evaluation.
+On \(\gamma\in[-1.2,-0.4]\) and transverse radius at most \(0.8\),
+with density \(\beta/(8\pi^2|\gamma|)\) at \(\beta=1.5\),
+\texttt{dblquad} returns
+\(-0.004633651977461527\),
+error estimate \(1.6\times 10^{-15}\).
+This is simulated scalar data, not the inherited component map.
+
+\section{Ledger}
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}YY@{}}
+\toprule
+Result & Status\\
+\midrule
+\(c_R\), \(c_{47}\), chart twin &
+Values of this \(b_0\)\\[0.3em]
+Mesh residuals shrinking at fixed \(\epsilon\) &
+Supports grid bias\\[0.3em]
+Probe against the exact \(\epsilon\)-free target &
+Quadrature check\\[0.3em]
+Gauss/Sobol atomic integral &
+Independent quadrature of S1\\[0.3em]
+Scalar non-tip \(\mathscr P_{5a}\) &
+Simulated adjoint, one row\\[0.3em]
+Seven-row physical pairing, S2, authorization &
+Not executed\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\paragraph{Verification boundary.}
+Numbers are tied to the named manifest and to fifteen passed tests.
+No physical admission is claimed.
+
+\begin{thebibliography}{99}
+\bibitem{Em02A}
+N.~Cheung, \emph{Em02-A}, version 6. Formula source.
+\end{thebibliography}
+\end{document}

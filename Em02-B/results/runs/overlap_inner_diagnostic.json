@@ -1,0 +1,27 @@
+{
+  "label": "singular_diagnostic",
+  "name": "S1-isolated-5a-inner-overlap",
+  "physical_admission": "not_claimed",
+  "frozen_failing_run": "row5a_05485aec7a9a",
+  "frozen_seed_sequence": [-49.39539578437025, 21.20005228382074, -8.252945245050988],
+  "row_value_released": false,
+  "inner_at_s_star": {
+    "sum": -2428.7159305348496,
+    "cancellation": 1.0,
+    "terms": [-999.2442251, -416.28453899, -416.28453899, -416.28453899, -180.61808847],
+    "tensor_n16_relative_gap": 0.00285
+  },
+  "inner_near_boundary": {"sum": 200.9008567108799, "cancellation": 1.0},
+  "outer": {
+    "gauss": {"4x4x6": 3.0063384877927235, "6x6x8": -0.14878173812878376, "8x6x8": -2.5768465443899973},
+    "sobol": {"m8_seed2": -4.347909257386673, "m8_seed5": -4.225671234169359, "m10_seed2": -4.274210840995639},
+    "status": "not_stable_across_methods"
+  },
+  "gates": {
+    "fixed_s_inner": "factored_reduction_matches_overlap_box",
+    "outer": "not_passed",
+    "kappa_scale_check": "not_entered",
+    "row_release": false
+  },
+  "not_claimed": ["physically_identified", "seven_row_sum", "S2", "authorization", "XV-B"]
+}

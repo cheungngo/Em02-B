@@ -1,0 +1,105 @@
+{
+  "label": "singular_diagnostic",
+  "name": "S1-isolated-5a-row",
+  "physical_admission": "not_claimed",
+  "component": {
+    "I": 1,
+    "J": 1,
+    "A_time": 1.0,
+    "f": 1.0,
+    "sigma": 1.0,
+    "g": 1.0
+  },
+  "mass": 1.0,
+  "u_star": [
+    1.0,
+    1.0,
+    0.0,
+    0.0
+  ],
+  "v_star": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "s_star": [
+    1.0,
+    1.0,
+    0.0,
+    0.0
+  ],
+  "t_star": [
+    0.6,
+    0.0,
+    0.6,
+    0.0
+  ],
+  "note": "Displayed mathematical data under a declared simulated component specialization.",
+  "source_id": "05485aec7a9a",
+  "created_utc": "2026-10-07T15:05:50.763008+00:00",
+  "python": "3.10.21",
+  "numpy": "2.2.6",
+  "isolation": {
+    "s_future_null": true,
+    "t_future_null": true,
+    "r_nonzero": true,
+    "b_minus_z_timelike": true,
+    "directions_nonparallel": true,
+    "q_b_minus_z": 1.2000000000000006,
+    "surviving_row_name": "5a",
+    "isolation_is_not_a_coefficient": true
+  },
+  "support_box": {
+    "delta": 0.35,
+    "u_half_width": 0.35,
+    "v_half_width": 0.35,
+    "s_radius_low": 0.30000000000000004,
+    "s_radius_high": 1.7,
+    "theta_max": 1.1154358165107394,
+    "injected_nodes": false
+  },
+  "algebra": {
+    "max_abs_term_gap": 2.842170943040401e-14,
+    "sum": -4134.464721449739
+  },
+  "J_t": -0.235534471977116,
+  "refinement": [
+    {
+      "n_u": 5,
+      "route_B": -49.39539578437025,
+      "route_A": -49.39539578437026,
+      "abs_gap": 7.105427357601002e-15
+    },
+    {
+      "n_u": 6,
+      "route_B": 21.20005228382074,
+      "route_A": 21.200052283820735,
+      "abs_gap": 3.552713678800501e-15
+    },
+    {
+      "n_u": 7,
+      "route_B": -8.252945245050988,
+      "route_A": -8.252945245050988,
+      "abs_gap": 0.0
+    }
+  ],
+  "gates": {
+    "G1_specification": "passed",
+    "G2_algebra": "passed",
+    "G3_geometry": "passed",
+    "G4_integration": "not_passed_sign_change_under_refinement",
+    "G5_routes": "constructions_agree_on_shared_grid_integral_not_stable",
+    "G6_derivative": "not_entered",
+    "G7_reporting": "passed_no_row_value_released"
+  },
+  "row_value_released": false,
+  "status": "displayed_mathematical_data_5a_constructions_without_a_stable_integral",
+  "not_claimed": [
+    "physically_identified",
+    "seven_row_sum",
+    "S2",
+    "authorization",
+    "wavefront_bound"
+  ]
+}

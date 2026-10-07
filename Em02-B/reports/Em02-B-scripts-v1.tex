@@ -1,0 +1,154 @@
+% Em02-B-scripts-v1.tex
+% Standalone pdfLaTeX source.
+% Documents the package that wrote audit_manifest.json.
+
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{array,booktabs,tabularx}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\allowdisplaybreaks
+\setlength{\emergencystretch}{3em}
+\setlist{leftmargin=*,itemsep=3pt,topsep=5pt}
+\setcounter{tocdepth}{1}
+\hypersetup{pdftitle={Em02-B scripts and recorded output},pdfauthor={}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\title{\textbf{Em02-B scripts}\\[0.4em]
+Modules, tests, and the audit manifest\\[0.4em]
+\large Source id \texttt{1eeba3536183}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The runner is \texttt{python -m em02b.run\_audit}.
+It writes \texttt{results/tables/audit\_manifest.json}
+and refuses \texttt{physical\_identified}.
+Fifteen tests passed in \(3.28\) seconds after the quadrature
+correction.
+This note maps each manifest field to the module that computed it.
+The retired shared-node sum is not produced by the current runner.
+A later immutable file, \texttt{results/runs/row5a\_05485aec7a9a.json},
+records the isolated \(5a\) constructions. Gate G2 passes.
+Gate G4 does not: the seed integral changes sign under refinement,
+so the runner sets \texttt{row\_value\_released} to false.
+\end{abstract}
+
+\tableofcontents
+
+\section{Run}
+From \texttt{Em02-B/}:
+\begin{verbatim}
+PYTHONPATH=src python -m pytest tests -q
+PYTHONPATH=src python -m em02b.run_audit
+\end{verbatim}
+The manifest records \texttt{source\_id}
+\texttt{1eeba3536183}, the first twelve hex digits of a SHA-256
+over the package sources.
+
+\section{Modules}
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}p{.30\linewidth}Y@{}}
+\toprule
+File & Output it owns\\
+\midrule
+\texttt{profiles.py} &
+\texttt{profile\_kappa\_m2\_residual}\\[0.2em]
+\texttt{cone\_measures.py} &
+\texttt{c\_R}, \texttt{c\_47}, \texttt{c\_47\_chart}\\[0.2em]
+\texttt{transition.py} &
+transition rows, probe target, mesh study\\[0.2em]
+\texttt{atomic\_integral.py} &
+Gauss and Sobol atomic pairings\\[0.2em]
+\texttt{adjoint\_5a.py} &
+scalar non-tip integral\\[0.2em]
+\texttt{simulated\_inputs.py} &
+label header and physical rejection\\[0.2em]
+\texttt{run\_audit.py} &
+manifest assembly\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\texttt{route\_ab.py} remains only as the retired diagnostic that
+inserted a null node and took \texttt{ss[1]-ss[0]} as every panel
+width. The runner does not call it.
+\texttt{atomic\_integral.py} uses Gauss--Legendre weights on the
+radial and polar intervals and a complete \(2^{m}\) Sobol design
+on the same cap. Route~A and Route~B call different integrators.
+
+\section{Manifest fields}
+Top level:
+\texttt{label=singular\_diagnostic},
+\texttt{name=S1-weighted-5a},
+\texttt{physical\_admission=not\_claimed},
+residual \(4.9960036108132044\times 10^{-15}\),
+\(c_R=0.625\),
+\(c_{47}=0.15045103006514954\),
+chart twin \(0.150451030064953\),
+probe target \(0.14179675523330723\).
+
+Transition rows use \(\epsilon=0.25,0.125,0.0625\).
+Five-cone residuals are \(-4.17\times 10^{-8}\).
+The \(81\)-node \(47\) residuals are about \(-1.12\times 10^{-5}\).
+Probe values are \(0.141796588567\), \(0.141796421900\),
+\(0.141796088567\).
+
+Mesh study at \(\epsilon=0.1\):
+residuals \(-1.342\times 10^{-4}\), \(-4.393\times 10^{-5}\),
+\(-1.119\times 10^{-5}\) at \(21\), \(41\), and \(81\) nodes.
+
+Atomic block at \(\delta=0.35\):
+Gauss \(4.851387241020615\) on \(9216\) nodes,
+Sobol \(4.845938176179326\) on \(4096\) nodes,
+absolute difference \(0.005449064841289264\).
+Differentiated profiles:
+\(-24.16497259148322\) and \(-24.198566431394124\),
+difference \(0.033593839910903256\).
+Status string:
+\texttt{independent\_quadrature\_of\_closed\_form\_atomic\_integrand}.
+
+Scalar adjoint:
+\(-0.004633651977461527\),
+\texttt{dblquad} estimate \(1.566\times 10^{-15}\),
+window \([-1.2,-0.4]\).
+Status string:
+\texttt{simulated\_scalar\_adjoint\_not\_inherited\_components}.
+
+\section{Tests}
+\texttt{test\_audit\_v2.py} checks rejection of the physical label,
+relative Route~A/B gap below \(5\%\), Gauss refinement move below
+\(3\%\), probe agreement to \(10^{-4}\), shrinking mesh residual,
+and a nonzero adjoint integral.
+The older tests still cover profile moments, isolation predicates,
+the manufactured indicator, and the restriction-order gap.
+Passing them does not certify the seven component adjoints.
+
+\section{Defects retired in this revision}
+An earlier JSON divided the \(47\) column by \(\epsilon^3\) twice and
+stored \(9.63\), \(77.0\), \(616.2\).
+The constructor now divides once.
+The value \(34.747\ldots\) came from a shared node set with a broken
+panel width. It is not regenerated.
+A timelike trial site \((1,0,0,0)\) was rejected before storage.
+
+\paragraph{Verification boundary.}
+This note describes the session that wrote the manifest.
+No physical admission is claimed.
+
+\begin{thebibliography}{99}
+\bibitem{Em02A}
+N.~Cheung, \emph{Em02-A}, version 6. Formula source.
+\end{thebibliography}
+\end{document}

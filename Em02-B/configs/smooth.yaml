@@ -1,0 +1,12 @@
+label: smooth_benchmark
+name: S0-C1
+physical_admission: not_claimed
+notes: >
+  Polynomial times compact bump. Even mollifier. Not an inherited covariance.
+profile:
+  kind: product_bump
+  relative_dim: 8
+rows_expected: [47, 5a, 5z, 6, 8, 9d, 9m]
+expansion_check:
+  subtract: [A0, delta2_A2]
+  predicted_raw_order: 4

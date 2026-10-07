@@ -1,0 +1,17 @@
+label: singular_diagnostic
+name: S1-isolated-5a
+physical_admission: not_claimed
+notes: >
+  Atomic crossed site. U_star - V_star equals b-a at the contributing point.
+  Do not vary the two centers independently.
+site:
+  u_star: [1.0, 1.0, 0.0, 0.0]
+  v_star: [0.0, 0.0, 0.0, 0.0]
+  # b-a = (1,1,0,0), future null, aligned with ell = (1,1,0,0)/direction (1,0,0) after normalizing space part
+
+patch:
+  row: 5a
+  beta: 1.0
+  epsilon: 0.3
+  n: [1.0, 0.0, 0.0]
+  m: [0.0, 1.0, 0.0]

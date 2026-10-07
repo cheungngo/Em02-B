@@ -1,0 +1,40 @@
+{
+  "label": "singular_diagnostic",
+  "physical_admission": "not_claimed",
+  "profile_kappa_m2_residual": 4.9960036108132044e-15,
+  "c_R": 0.625,
+  "c_47": 0.15045103006514954,
+  "c_47_chart": 0.150451030064953,
+  "transition": [
+    {
+      "eps": 0.25,
+      "scaled_5": 0.6249999583333334,
+      "residual_5": -4.1666666561468446e-08,
+      "scaled_47": 0.15043972283742904,
+      "residual_47": -1.1307227720497304e-05,
+      "amplitude_probe": 0.14179658856664057
+    },
+    {
+      "eps": 0.125,
+      "scaled_5": 0.6249999583333333,
+      "residual_5": -4.166666667249075e-08,
+      "scaled_47": 0.15043982491874303,
+      "residual_47": -1.1205146406512156e-05,
+      "amplitude_probe": 0.14179642189997388
+    },
+    {
+      "eps": 0.0625,
+      "scaled_5": 0.6249999583333333,
+      "residual_5": -4.166666667249075e-08,
+      "scaled_47": 0.15043984992013812,
+      "residual_47": -1.1180145011419063e-05,
+      "amplitude_probe": 0.1417960885666414
+    }
+  ],
+  "route_agreement": {
+    "A": 34.747329490100476,
+    "B": 34.747329490100476,
+    "abs_diff": 0.0,
+    "status": "implementation_check_not_physical_asymptotics"
+  }
+}
